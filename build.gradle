@@ -5,3 +5,7 @@ subprojects {
 
 
 project(':common'){}
+project(':server-ui'){}
+project(':server-core'){}
+project(':tracker-ui'){}
+project(':tracker-core'){}

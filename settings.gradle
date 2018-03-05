@@ -1,4 +1,7 @@
 rootProject.name = 'toll-2018'
 
 include 'common'
-
+include 'server-ui'
+include 'server-core'
+include 'tracker-ui'
+include 'tracker-core'
