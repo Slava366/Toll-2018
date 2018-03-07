@@ -38,6 +38,7 @@ project(':tracker-ui'){
 }
 
 project(':tracker-core'){
+    apply plugin: 'java-library-distribution'
     dependencies {
         compile project(':common')
     }
