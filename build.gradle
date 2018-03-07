@@ -20,18 +20,21 @@ project(':common'){
 }
 
 project(':server-ui'){
+    apply plugin: 'java-library-distribution'
     dependencies {
         compile project(':common')
     }
 }
 
 project(':server-core'){
+    apply plugin: 'java-library-distribution'
     dependencies {
         compile project(':common')
     }
 }
 
 project(':tracker-ui'){
+    apply plugin: 'java-library-distribution'
     dependencies {
         compile project(':common')
     }
@@ -48,9 +51,11 @@ buildscript {
 project(':tracker-core'){
     apply plugin: 'java-library-distribution'
     apply plugin: 'gradle-one-jar'
+
     dependencies {
         compile project(':common')
     }
+
     task fatJar(type: OneJar) {
         mainClass = 'jdev.tracker.Main'
     }
