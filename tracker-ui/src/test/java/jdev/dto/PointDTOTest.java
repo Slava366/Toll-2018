@@ -12,7 +12,7 @@ public class PointDTOTest {
     private String autoId = "o567gfd";
 
     @Test
-    /**
+    /*
      * Из объетка в строку
      */
     public void toJson() throws Exception {
@@ -27,7 +27,7 @@ public class PointDTOTest {
     }
 
     @Test
-    /**
+    /*
      * Из строки в объект
      */
     public void decodeDTO() throws Exception {
