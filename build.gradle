@@ -4,10 +4,12 @@ task wrapper(type: Wrapper) {
 
 subprojects {
     apply plugin: 'java'
+
     repositories {
         mavenCentral()
         mavenLocal()
     }
+
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
     }
@@ -18,6 +20,7 @@ subprojects {
 project(':common'){
     dependencies {
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+        compile group: 'org.springframework', name: 'spring-context', version: '4.3.7.RELEASE'
     }
 }
 
@@ -46,10 +49,12 @@ buildscript {
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath 'com.github.rholder:gradle-one-jar:1.0.4'
     }
 }
+
 project(':tracker-core'){
     apply plugin: 'java-library-distribution'
     apply plugin: 'gradle-one-jar'
