@@ -61,6 +61,7 @@ project(':tracker-core'){
 
     dependencies {
         compile project(':common')
+        compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.1'
     }
 
     task fatJar(type: OneJar) {
