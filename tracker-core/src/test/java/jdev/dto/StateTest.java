@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PointTest {
+public class StateTest {
 
     private String expected = "{\"lat\":56.0,\"lon\":74.0,\"autoId\":\"o567gfd\",\"time\":1520422523797}";
     private String autoId = "o567gfd";
@@ -16,14 +16,14 @@ public class PointTest {
      * Из объетка в строку
      */
     public void toJson() throws Exception {
-        Point point = new Point();
-        point.setLat(56);
-        point.setLon(74);
-        point.setAutoId("o567gfd");
-        point.setTime(System.currentTimeMillis());
-        assertTrue(point.toJson().contains("\"lat\":56"));
-        assertTrue(point.toJson().contains("\"time\":"));
-        System.out.println(point.toJson());
+        State state = new State();
+        state.setLatitude(56);
+        state.setLongitude(74);
+        state.setAutoId("o567gfd");
+        state.setTime(System.currentTimeMillis());
+        assertTrue(state.toJson().contains("\"lat\":56"));
+        assertTrue(state.toJson().contains("\"time\":"));
+        System.out.println(state.toJson());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class PointTest {
      */
     public void decodeDTO() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        Point dto = mapper.readValue(expected, Point.class);
+        State dto = mapper.readValue(expected, State.class);
         assertEquals(autoId, dto.getAutoId());
         assertEquals(1520422523797L, dto.getTime());
     }

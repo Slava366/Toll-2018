@@ -19,7 +19,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @Configuration
 @EnableScheduling
 @PropertySource("classpath:app.properties")
-public class InjectionContext {
+public class GPSContext {
 
     @Bean
     public GPSDataPeekService gpsDataPeekService() {

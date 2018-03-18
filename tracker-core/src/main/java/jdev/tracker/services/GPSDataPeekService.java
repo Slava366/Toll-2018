@@ -2,7 +2,7 @@ package jdev.tracker.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.micromata.opengis.kml.v_2_2_0.*;
-import jdev.dto.Point;
+import jdev.dto.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -31,12 +31,13 @@ public class GPSDataPeekService {
     private void peek() throws InterruptedException, JsonProcessingException {
         if(index > coordinates.size() - 1) index = 0;       // Если координаты закончились, начинаем сначала
         Coordinate coordinate = coordinates.get(index);     // Получаем текущуюю координату
-        Point point = new Point();
-        point.setAutoId("b666ad");
-        point.setTime(System.currentTimeMillis());
-        point.setLat(coordinate.getLatitude());
-        point.setLon(coordinate.getLongitude());
-        gpsDataSaveService.add(point.toJson());      // Отправляет данные в сервис хранения
+        State state = new State();
+
+        state.setAutoId("b666ad");
+        state.setTime(System.currentTimeMillis());
+        state.setLatitude(coordinate.getLatitude());
+        state.setLongitude(coordinate.getLongitude());
+        gpsDataSaveService.add(state.toJson());      // Отправляет данные в сервис хранения
         index++;
     }
 
