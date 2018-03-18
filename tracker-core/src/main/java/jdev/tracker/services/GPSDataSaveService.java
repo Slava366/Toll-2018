@@ -20,7 +20,6 @@ public class GPSDataSaveService {
      * @throws InterruptedException
      */
     public void add(String data) throws InterruptedException {
-        System.out.println(data);
         queue.put(data);
     }
 
