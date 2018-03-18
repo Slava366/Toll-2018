@@ -1,5 +1,6 @@
 package jdev.tracker.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -7,4 +8,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GPSDataSendService {
+
+    @Autowired
+    GPSDataSaveService gpsDataSaveService;           // Ссылка на сервис хранения
 }

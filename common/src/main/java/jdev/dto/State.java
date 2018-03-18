@@ -12,8 +12,8 @@ public class State {
     private double longitude;       // Долгота
     private String autoId;          // Регистрационный знак автомобиля
     private long time;              // Время
-    private double speed;              // Скорость
-    private double azimuth;         // Азимут
+    private double speed;           // Скорость, км/ч
+    private double azimuth;         // Азимут, градусы
 
 
     public double getLatitude() {

@@ -20,7 +20,7 @@ public class GPSDataPeekService {
     private List<Coordinate> coordinates;               // Список координат из файла
     private int index = 0;                              // Текущая координата
     private double azimuth;                             // Азимут
-    private double speed;                                  // Скорость
+    private double speed;                               // Скорость
 
     @Autowired
     private GPSDataSaveService gpsDataSaveService;      // Ссылка на сервис хранения
@@ -29,7 +29,7 @@ public class GPSDataPeekService {
      * Периодически отправляет координаты в очередь сервиса хранения
      * @throws InterruptedException
      */
-    @Scheduled (cron = "${cron.prop}")
+    @Scheduled (fixedDelayString = "${peekFixedDelay.prop}", initialDelayString = "${peekInitialDelay.prop}")
     private void peek() throws InterruptedException, JsonProcessingException {
         State state = new State();          // Создаем объект состояния
         state.setAutoId("B666AD");          // Регистрационный номер автомобиля
@@ -71,10 +71,8 @@ public class GPSDataPeekService {
         // Координаты точек в радианах
         double latitude1 = coordinate.getLatitude() * Math.PI / 180;
         double longitude1 = coordinate.getLongitude() * Math.PI / 180;
-
         double latitude2 = coordinateNext.getLatitude() * Math.PI / 180;
         double longitude2 = coordinateNext.getLongitude() * Math.PI / 180;
-
         // Косинусы и синусы широт и разницы долгот
         double cosLatitude1 = Math.cos(latitude1);
         double sinLatitude1 = Math.sin(latitude1);
@@ -83,26 +81,21 @@ public class GPSDataPeekService {
         double delta = longitude2 - longitude1;
         double cosDelta = Math.cos(delta);
         double sinDelta = Math.sin(delta);
-
         // Вычисляем длину большого круга
         double y = Math.sqrt(Math.pow(cosLatitude2 * sinDelta, 2) + Math.pow(cosLatitude1 * sinLatitude2 - sinLatitude1 * cosLatitude2 * cosDelta, 2));
         double x = sinLatitude1 * sinLatitude2 + cosLatitude1 * cosLatitude2 * cosDelta;
         double ad = Math.atan2(y, x);
         double distance = ad * worldRadius;     // Метры
-
         // Вычисление начального азимута
         x = cosLatitude1 * sinLatitude2 - sinLatitude1 * cosLatitude2 * cosDelta;
         y = sinDelta * cosLatitude2;
         double z = Math.toDegrees(Math.atan(- y / x));
         if(x < 0) z += 180;
-
         double z2 = (z + 180) % 360 - 180;
         z2 = Math.toRadians(z2);
         double angleRadius2 = z2 - ((2 * Math.PI) * Math.floor(z2 / (2 * Math.PI)));
-        double angleDegree = (angleRadius2 * 180) / Math.PI;
-
         // Сохраняем значения
-        azimuth = angleDegree;      // Азимут
-        speed = distance / 1;      // Скорость м/с
+        azimuth = (angleRadius2 * 180) / Math.PI;      // Азимут
+        speed = distance / 1000 * 3600;      // Скорость км/ч
     }
 }
