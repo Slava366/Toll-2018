@@ -12,7 +12,7 @@ public class State {
     private double longitude;       // Долгота
     private String autoId;          // Регистрационный знак автомобиля
     private long time;              // Время
-    private int speed;              // Скорость
+    private double speed;              // Скорость
     private double azimuth;         // Азимут
 
 
@@ -48,11 +48,11 @@ public class State {
         return time;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
