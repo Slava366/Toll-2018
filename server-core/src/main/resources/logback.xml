@@ -8,8 +8,17 @@
         </encoder>
     </appender>
 
+    <appender name="DEFAULT_FILE" class="ch.qos.logback.core.FileAppender">
+        <param name="file" value="server-core-log.txt" />
+        <param name="append" value="false" />
+        <encoder>
+            <pattern>%d{dd.MM.yy HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>>
+
     <root level="INFO">
         <appender-ref ref="DEFAULT_STDOUT"/>
+        <appender-ref ref="DEFAULT_FILE"/>
     </root>
 
 </configuration>

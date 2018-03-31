@@ -31,13 +31,6 @@ project(':server-ui'){
     }
 }
 
-project(':server-core'){
-    apply plugin: 'java-library-distribution'
-    dependencies {
-        compile project(':common')
-    }
-}
-
 project(':tracker-ui'){
     apply plugin: 'java-library-distribution'
     dependencies {
@@ -52,6 +45,20 @@ buildscript {
 
     dependencies {
         classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+
+project(':server-core'){
+    apply plugin: 'java-library-distribution'
+    apply plugin: 'gradle-one-jar'
+    dependencies {
+        compile project(':common')
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+        compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+    }
+
+    task fatJar(type: OneJar) {
+        mainClass = 'jdev.tracker.Main'
     }
 }
 
