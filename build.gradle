@@ -24,13 +24,6 @@ project(':common'){
     }
 }
 
-project(':server-ui'){
-    apply plugin: 'java-library-distribution'
-    dependencies {
-        compile project(':common')
-    }
-}
-
 project(':tracker-ui'){
     apply plugin: 'java-library-distribution'
     dependencies {
@@ -46,6 +39,25 @@ buildscript {
     dependencies {
         classpath 'com.github.rholder:gradle-one-jar:1.0.4'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+    }
+}
+
+
+project(':server-ui'){
+    apply plugin: 'java-library-distribution'
+    apply plugin: 'org.springframework.boot'
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+        compile("org.springframework.boot:spring-boot-starter-security")
+        compile project(':common')
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile("org.springframework.security:spring-security-test")
+    }
+
+    jar {
+        baseName = 'server-ui-security'
+        version = '0.1.0'
     }
 }
 
