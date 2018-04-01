@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jdev.dto.State;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,20 +24,19 @@ public class StateController {
      * @return
      */
     @RequestMapping(value = "/state", method = RequestMethod.POST)
-    public ServerResponse getState(@RequestParam(value = "stateInfo", defaultValue = "{}") String stateInfo) {
-        // Проверяем корректность данных
-        boolean isStateInfo = true;
-        for (Field field : State.class.getDeclaredFields()) {
-            if(!stateInfo.contains("\"" + field.getName() + "\"")) isStateInfo = false;
-        }
+    public ServerResponse getState(@RequestParam(value = "stateInfo", defaultValue = "") String stateInfo) {
         // Формируем ответ
         ServerResponse serverResponse;
-        if(isStateInfo) {
+        // Проверяем корректность данных
+        try {
+            new ObjectMapper().readValue(stateInfo, State.class);
+            // Данные корректны
             serverResponse = new ServerResponse(true);
-            LOG.info(stateInfo);
-        } else {
+            LOG.info("{\"success\":true} FOR: " + stateInfo);
+        } catch (Exception e) {
+            // Данные не корректны
             serverResponse = new ServerResponse(false);
-            LOG.warn(stateInfo);
+            LOG.warn("{\"success\":false} WITH: " + e.getMessage());
         }
         // Возвращаем ответ
         return serverResponse;
