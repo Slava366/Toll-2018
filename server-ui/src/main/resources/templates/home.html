@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Сервер приема GPS координат</title>
+        <link rel="stylesheet" href="../static/css/default.css" th:href="@{/css/default.css}" type="text/css" />
+    </head>
+    <body>
+        <h3 th:inline="text">Добро пожаловать [[${#httpServletRequest.remoteUser}]]!</h3>
+
+        <h3>Если Вы - CLIENT, MANAGER или ROOT:</h3>
+        <p>Кликните <a th:href="@{/routes}">здесь</a> для просмотра маршрутов.</p>
+        <p>Кликните <a th:href="@{/payments}">здесь</a> для просмотра платежей.</p>
+
+        <h3>Если Вы - MANAGER или ROOT:</h3>
+        <p>Кликните <a th:href="@{/registerClient}">здесь</a> для регистрации клиента.</p>
+        <h3>Если Вы - ROOT:</h3>
+        <p>Кликните <a th:href="@{/registerManager}">здесь</a> для регистрации менеджера.</p>
+    </body>
+</html>
