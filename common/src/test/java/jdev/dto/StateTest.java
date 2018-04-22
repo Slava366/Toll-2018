@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class StateTest {
 
-    private String json = "{\"latitude\":56.0,\"longitude\":74.0,\"autoId\":\"o567gfd\",\"time\":1521964156074,\"speed\":0.0,\"azimuth\":0.0}";
+    private String json = "{\"latitude\":56.0,\"longitude\":74.0,\"autoId\":\"o567gfd\",\"time\":1521964156074,\"speed\":95.3,\"azimuth\":89.1}";
     private String autoId = "o567gfd";
 
     /**
@@ -18,13 +18,22 @@ public class StateTest {
      */
     @Test
     public void encodeDTO() throws Exception {
-        State state = new State();
+        State state = new State();      // Создаем объект
+        // Устанавливаем значения полей
         state.setLatitude(56);
         state.setLongitude(74);
         state.setAutoId("o567gfd");
         state.setTime(System.currentTimeMillis());
+        state.setSpeed(95.3);
+        state.setAzimuth(89.1);
+        // Переводим объект в строку json и проверяем ее корректность
         assertTrue(state.toJson().contains("\"latitude\":56"));
+        assertTrue(state.toJson().contains("\"longitude\":74"));
+        assertTrue(state.toJson().contains("\"autoId\":\"o567gfd\""));
         assertTrue(state.toJson().contains("\"time\":"));
+        assertTrue(state.toJson().contains("\"speed\":95.3"));
+        assertTrue(state.toJson().contains("\"azimuth\":89.1"));
+        // Выводим строку на экран
         System.out.println(state.toJson());
     }
 
@@ -33,109 +42,18 @@ public class StateTest {
      */
     @Test
     public void decodeDTO() throws Exception {
+        // Переводим строку json в объект класса State
         ObjectMapper mapper = new ObjectMapper();
         State dto = mapper.readValue(json, State.class);
+        // Проверяем значения полей
+        assertEquals(56, dto.getLatitude(), 0);
+        assertEquals(74, dto.getLongitude(), 0);
         assertEquals(autoId, dto.getAutoId());
         assertEquals(1521964156074L, dto.getTime());
-    }
-
-    @Test
-    public void getLatitude() {
-        State state = new State();
-        state.setLatitude(89);
-        assertEquals(89, state.getLatitude(), 0);
-    }
-
-    @Test
-    public void setLatitude() {
-        State state = new State();
-        state.setLatitude(89);
-        assertEquals(89, state.getLatitude(), 0);
-    }
-
-    @Test
-    public void getLongitude() {
-        State state = new State();
-        state.setLongitude(89);
-        assertEquals(89, state.getLongitude(), 0);
-    }
-
-    @Test
-    public void setLongitude() {
-        State state = new State();
-        state.setLongitude(89);
-        assertEquals(89, state.getLongitude(), 0);
-    }
-
-    @Test
-    public void getAutoId() {
-        State state = new State();
-        state.setAutoId("a666dy");
-        assertEquals("a666dy", state.getAutoId());
-        assertNotNull(state.getAutoId());
-    }
-
-    @Test
-    public void setAutoId() {
-        State state = new State();
-        state.setAutoId("a666dy");
-        assertEquals("a666dy", state.getAutoId());
-        assertNotNull(state.getAutoId());
-    }
-
-    @Test
-    public void setTime() {
-        State state = new State();
-        state.setTime(3265487946L);
-        assertEquals(3265487946L, state.getTime());
-        assertNotEquals(6548972L, state.getTime());
-    }
-
-    @Test
-    public void getTime() {
-        State state = new State();
-        state.setTime(3265487946L);
-        assertEquals(3265487946L, state.getTime());
-        assertNotEquals(6548972L, state.getTime());
-    }
-
-    @Test
-    public void getSpeed() {
-        State state = new State();
-        state.setSpeed(200);
-        assertEquals(200, state.getSpeed(), 0);
-        assertNotEquals(56, state.getSpeed());
-    }
-
-    @Test
-    public void setSpeed() {
-        State state = new State();
-        state.setSpeed(200);
-        assertEquals(200, state.getSpeed(), 0);
-        assertNotEquals(56, state.getSpeed());
-    }
-
-    @Test
-    public void getAzimuth() {
-        State state = new State();
-        state.setAzimuth(98);
-        assertEquals(98, state.getAzimuth(), 0);
-        assertNotEquals(31, state.getAzimuth());
-    }
-
-    @Test
-    public void setAzimuth() {
-        State state = new State();
-        state.setAzimuth(98);
-        assertEquals(98, state.getAzimuth(), 0);
-        assertNotEquals(31, state.getAzimuth());
-    }
-
-    @Test
-    public void toJson() throws JsonProcessingException {
-        State state = new State();
-        for(Field field : state.getClass().getDeclaredFields()) {
-            assertTrue(state.toJson().contains(field.getName()));
-        }
+        assertEquals(95.3, dto.getSpeed(),0);
+        assertEquals(89.1, dto.getAzimuth(),0);
+        // Выводим поля объекта на экран
+        for(Field field : dto.getClass().getDeclaredFields())
+            System.out.println(field.getName());
     }
 }
