@@ -72,6 +72,7 @@ project(':server-core'){
         compile project(':common')
         compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
         compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+//        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
     }
 
     task fatJar(type: OneJar) {
@@ -96,6 +97,7 @@ project(':tracker-core'){
         compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.1'
         compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
         compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+//        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
     }
 
     task fatJar(type: OneJar) {
