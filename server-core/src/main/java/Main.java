@@ -9,11 +9,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
+
 @SpringBootApplication
 @ComponentScan({"controllers"})
 @EnableJpaRepositories("jdev.dto")
 @EntityScan(basePackageClasses = jdev.dto.State.class)
 public class Main implements CommandLineRunner {
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
