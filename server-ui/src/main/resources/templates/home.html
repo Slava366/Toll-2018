@@ -16,5 +16,9 @@
         <p>Кликните <a th:href="@{/registerClient}">здесь</a> для регистрации клиента.</p>
         <h3>Если Вы - ROOT:</h3>
         <p>Кликните <a th:href="@{/registerManager}">здесь</a> для регистрации менеджера.</p>
+        <br />
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Выйти из системы"/>
+        </form>
     </body>
 </html>
