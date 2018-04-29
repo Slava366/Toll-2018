@@ -3,18 +3,43 @@ package jdev.dto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.AUTO;
+
+
 /**
  * Описывает состояние объекта
  */
+@Entity
+@Table(name = "STATES")
 public class State {
 
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    @Column(name = "ID")
+    int id;
+    @Column(name = "LATITUDE")
     private double latitude;        // Широта
+    @Column(name = "LONGITUDE")
     private double longitude;       // Долгота
+    @Column(name = "AUTO_ID")
     private String autoId;          // Регистрационный знак автомобиля
+    @Column(name = "TIME")
     private long time;              // Время
+    @Column(name = "SPEED")
     private double speed;           // Скорость, км/ч
+    @Column(name = "AZIMUTH")
     private double azimuth;         // Азимут, градусы
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public double getLatitude() {
         return latitude;
