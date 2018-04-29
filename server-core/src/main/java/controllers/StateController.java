@@ -2,8 +2,10 @@ package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jdev.dto.State;
+import jdev.dto.repo.StateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,8 @@ public class StateController {
 
     private static Logger LOG = LoggerFactory.getLogger(StateController.class);
 
+    @Autowired
+    StateRepository stateRepository;
 
     /**
      * Сохраняет полученные от tracker-core координаты в log
@@ -27,10 +31,13 @@ public class StateController {
         ServerResponse serverResponse;
         // Проверяем корректность данных
         try {
-            new ObjectMapper().readValue(stateInfo, State.class);
+            State stateInfoObject = new ObjectMapper().readValue(stateInfo, State.class);
             // Данные корректны
             serverResponse = new ServerResponse(true);
+            // Записываем в лог
             LOG.info("{\"success\":true} FOR: " + stateInfo);
+            // Сохраняем в базу данных
+            stateRepository.save(stateInfoObject);
         } catch (Exception e) {
             // Данные не корректны
             serverResponse = new ServerResponse(false);
