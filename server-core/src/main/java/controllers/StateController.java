@@ -6,6 +6,8 @@ import jdev.dto.repo.StateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,12 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@EnableJpaRepositories("jdev.dto")
+@EntityScan(basePackageClasses = jdev.dto.State.class)
 public class StateController {
 
     private static Logger LOG = LoggerFactory.getLogger(StateController.class);
 
+    private final StateRepository stateRepository;
+
     @Autowired
-    StateRepository stateRepository;
+    public StateController(StateRepository stateRepository) {
+        this.stateRepository = stateRepository;
+    }
 
     /**
      * Сохраняет полученные от tracker-core координаты в log
@@ -35,10 +43,10 @@ public class StateController {
             State stateInfoObject = new ObjectMapper().readValue(stateInfo, State.class);
             // Данные корректны
             serverResponse = new ServerResponse(true);
-            // Записываем в лог
-            LOG.info("{\"success\":true} FOR: " + stateInfo);
             // Сохраняем в базу данных
             stateRepository.save(stateInfoObject);
+            // Записываем в лог
+            LOG.info("{\"success\":true} FOR: " + stateInfo);
         } catch (Exception e) {
             // Данные не корректны
             serverResponse = new ServerResponse(false);

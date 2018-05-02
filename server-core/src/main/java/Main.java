@@ -17,12 +17,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackageClasses = jdev.dto.State.class)
 public class Main implements CommandLineRunner {
 
+    private final StateRepository stateRepository;
+
+    @Autowired
+    public Main(StateRepository stateRepository) {
+        this.stateRepository = stateRepository;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
-
-    @Autowired
-    StateRepository stateRepository;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
