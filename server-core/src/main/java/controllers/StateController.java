@@ -55,4 +55,13 @@ public class StateController {
         // Возвращаем ответ
         return serverResponse;
     }
+
+
+    /**
+     * Возвращает максимально возможное число самых поздних по времени отметок
+     */
+    @RequestMapping(value = "/lastStates", method = RequestMethod.POST)
+    public String queryState(@RequestParam(value = "stateQuery", defaultValue = "") String stateQuery) {
+        return "";
+    }
 }
