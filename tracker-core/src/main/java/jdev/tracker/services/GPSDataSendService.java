@@ -1,5 +1,8 @@
 package jdev.tracker.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jdev.dto.State;
+import jdev.dto.repo.StateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ public class GPSDataSendService {
     @Autowired
     GPSDataSaveService gpsDataSaveService;           // Ссылка на сервис хранения
 
+    @Autowired
+    StateRepository stateRepository;
 
     /**
      * Считывает значение из очереди, если есть
@@ -40,8 +45,12 @@ public class GPSDataSendService {
             // Пробуем отправить запрос
             String answer = restTemplate.postForObject(SERVER_CORE_STATE_URL, httpHeaders, String.class);
             // Проверяем ответ сервера
-            if(answer.contains("\"success\":true")) LOG.info(answer + " FOR: " + gpsData);
-            else LOG.warn(answer + " FOR: " + gpsData);
+            if(answer.contains("\"success\":true")) {
+                // Записываем результат в базу данных
+                stateRepository.save(new ObjectMapper().readValue(gpsData, State.class));
+                // Записываем в лог
+                LOG.info(answer + " FOR: " + gpsData);
+            } else LOG.warn(answer + " FOR: " + gpsData);
         } catch (Exception e) {
             // Ошибка при запросе
             LOG.error(e.getMessage() + " FOR: " + gpsData);
