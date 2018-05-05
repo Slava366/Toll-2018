@@ -10,11 +10,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-
 @SpringBootApplication
 @ComponentScan({"controllers"})
-@EnableJpaRepositories("jdev.dto")
-@EntityScan(basePackageClasses = jdev.dto.State.class)
+@EnableJpaRepositories({"jdev.dto"})
+@EntityScan(basePackageClasses = {jdev.dto.State.class})
 public class Main implements CommandLineRunner {
 
     private final StateRepository stateRepository;

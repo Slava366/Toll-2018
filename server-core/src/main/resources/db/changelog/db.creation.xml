@@ -14,6 +14,14 @@
             TIME BIGINT,
             SPEED DOUBLE,
             AZIMUTH DOUBLE
+            );
+
+            create table CLIENTS
+            (
+            ID INTEGER AUTO_INCREMENT primary key,
+            USERNAME VARCHAR(32),
+            PASSWORD VARCHAR(32),
+            AUTO_ID VARCHAR(6)
             )
 
         </sql>
