@@ -78,7 +78,6 @@ public class StateController {
             for (int i = 0; i < size - query.getMaxAmount(); i++) {
                 response.remove(0);
             }
-            System.out.println(response.size());
             // Записываем лог
             LOG.info("DONE FOR: " + stateQuery);
         } catch (IOException e) {
