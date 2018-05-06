@@ -8,6 +8,36 @@
 <body>
     <h3>Форма регистрации клиента:</h3>
     <br />
+        <h3 th:if="${clientIsAdded}">Новый клинт успешно добавлен!</h3>
+    <br />
+        <form th:action="@{/registerClient}" method="post">
+            <div>Имя: <input type="text" name="username" /></div>
+            <div>Пароль: <input type="password" name="password" /></div>
+            <div>Номер авто: <input type="text" name="autoId" /></div>
+            <div><input type="submit" value="Добавить пользователя" /></div>
+        </form>
+    <br />
+        <h3 th:if="${clients}">Список клиентов:</h3>
+        <h3 th:if="${clientId}" th:inline="text">Клиент с идентификатором [[${clientId}]] удален!</h3>
+        <table th:if="${clients}" border="1" width="100%">
+            <tr>
+                <td><b>ID</b></td>
+                <td><b>Имя пользователя</b></td>
+                <td><b>Номер авто</b></td>
+                <td><b>Действия</b></td>
+            </tr>
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.getId()}"></td>
+                <td th:text="${client.getUsername()}"></td>
+                <td th:text="${client.getAutoId()}"></td>
+                <td>
+                    <form th:action="@{/registerClient}" method="post">
+                        <input type="hidden" name="clientId" th:value="${client.getId()}" />
+                        <input type="submit" value="Удалить"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
     <p><a th:href="@{/home}">Вернуться на главную страницу...</a></p>
 </body>
 </html>
