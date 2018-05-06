@@ -1,6 +1,5 @@
 package controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jdev.dto.State;
 import jdev.dto.repo.StateRepository;
