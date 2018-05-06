@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet id="db.creation" author="jdev">
+        <sql>
+
+            create table STATES
+            (
+            ID INTEGER AUTO_INCREMENT primary key,
+            LATITUDE DOUBLE,
+            LONGITUDE DOUBLE,
+            AUTO_ID VARCHAR(6),
+            TIME BIGINT,
+            SPEED DOUBLE,
+            AZIMUTH DOUBLE
+            );
+
+            create table CLIENTS
+            (
+            ID INTEGER AUTO_INCREMENT primary key,
+            USERNAME VARCHAR(32),
+            PASSWORD VARCHAR(32),
+            AUTO_ID VARCHAR(6)
+            )
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>

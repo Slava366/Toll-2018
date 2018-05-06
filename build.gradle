@@ -57,6 +57,12 @@ project(':server-ui'){
         compile("org.springframework.boot:spring-boot-starter-thymeleaf")
         compile("org.springframework.boot:spring-boot-starter-security")
         compile project(':common')
+        compile("org.springframework.boot:spring-boot-starter-web"){
+            exclude module: "spring-boot-starter-tomcat"
+        }
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
+        compile group: 'com.h2database', name: 'h2', version: '1.4.195'
         testCompile("org.springframework.boot:spring-boot-starter-test")
         testCompile("org.springframework.security:spring-security-test")
     }
@@ -105,7 +111,6 @@ project(':tracker-core'){
     apply plugin: 'gradle-one-jar'
 
     dependencies {
-//        compile("org.springframework.boot:spring-boot-starter-thymeleaf")
         compile("org.springframework.boot:spring-boot-devtools")
         compile project(':common')
         compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.1'
