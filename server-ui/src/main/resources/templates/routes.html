@@ -7,6 +7,34 @@
 </head>
 <body>
     <h3>Список маршрутов:</h3>
+    <div th:if="${stateId}"><h3 th:inline="text">Метка с идентификатором [[${stateId}]] удалена!</h3></div>
+    <table width="100%" border="1">
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Долгота</b></td>
+            <td><b>Широта</b></td>
+            <td><b>Номер авто</b></td>
+            <td><b>Время в мс.</b></td>
+            <td><b>Скорость, км/ч.</b></td>
+            <td><b>Азимут</b></td>
+            <td><b>Действия</b></td>
+        </tr>
+        <tr th:each="state : ${states}">
+            <td th:text="${state.getId()}"></td>
+            <td th:text="${state.getLatitude()}"></td>
+            <td th:text="${state.getLongitude()}"></td>
+            <td th:text="${state.getAutoId()}"></td>
+            <td th:text="${state.getTime()}"></td>
+            <td th:text="${state.getSpeed()}"></td>
+            <td th:text="${state.getAzimuth()}"></td>
+            <td>
+                <form th:action="@{/routes}" method="post">
+                    <input type="hidden" name="stateId" value="0" th:value="${state.getId()}" />
+                    <input type="submit" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+    </table>
     <br />
     <p><a th:href="@{/home}">Вернуться на главную страницу...</a></p>
 </body>
