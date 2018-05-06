@@ -57,6 +57,7 @@ project(':server-ui'){
         compile("org.springframework.boot:spring-boot-starter-thymeleaf")
         compile("org.springframework.boot:spring-boot-starter-security")
         compile project(':common')
+        compile project(':server-core')
         compile("org.springframework.boot:spring-boot-starter-web"){
             exclude module: "spring-boot-starter-tomcat"
         }

@@ -2,7 +2,6 @@ package entity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.AUTO;
