@@ -6,9 +6,32 @@
     <link rel="stylesheet" href="../static/css/default.css" th:href="@{/css/default.css}" type="text/css" />
 </head>
 <body>
+    <h3 th:if="${clients}">Список пользователей:</h3>
+    <table th:if="${clients}" border="1">
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Имя</b></td>
+            <td><b>Номер авто</b></td>
+            <td><b>Действия</b></td>
+        </tr>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.getId()}"></td>
+            <td th:text="${client.getUsername()}"></td>
+            <td th:text="${client.getAutoId()}"></td>
+            <td>
+                <div th:unless="${client.getAutoId() == autoId}">
+                <form th:action="@{/routes}" method="post">
+                    <input type="hidden" name="autoId" th:value="${client.getAutoId()}" />
+                    <input type="submit" value="Посмотреть маршрут" />
+                </form>
+                </div>
+            </td>
+        </tr>
+    </table>
     <h3>Список маршрутов:</h3>
     <div th:if="${stateId}"><h3 th:inline="text">Метка с идентификатором [[${stateId}]] удалена!</h3></div>
-    <table width="100%" border="1">
+    <div th:unless="${states}">Список пуст...</div>
+    <table th:if="${states}" width="100%" border="1">
         <tr>
             <td><b>ID</b></td>
             <td><b>Долгота</b></td>
@@ -29,7 +52,8 @@
             <td th:text="${state.getAzimuth()}"></td>
             <td>
                 <form th:action="@{/routes}" method="post">
-                    <input type="hidden" name="stateId" value="0" th:value="${state.getId()}" />
+                    <input type="hidden" name="stateId" th:value="${state.getId()}" />
+                    <input type="hidden" name="autoId" th:value="${autoId}" />
                     <input type="submit" value="Удалить"/>
                 </form>
             </td>
