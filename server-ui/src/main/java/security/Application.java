@@ -9,7 +9,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("config")
+@ComponentScan({"config", "controllers"})
 @EnableJpaRepositories({"jdev.dto"})
 @EntityScan(basePackageClasses = {jdev.dto.State.class})
 public class Application {
