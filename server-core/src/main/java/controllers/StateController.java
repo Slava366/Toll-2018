@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jdev.dto.State;
 import jdev.dto.repo.StateRepository;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 @RestController
@@ -61,7 +64,28 @@ public class StateController {
      * Возвращает максимально возможное число самых поздних по времени отметок
      */
     @RequestMapping(value = "/lastStates", method = RequestMethod.POST)
-    public String queryState(@RequestParam(value = "stateQuery", defaultValue = "") String stateQuery) {
-        return "";
+    public String queryState(@RequestParam(value = "stateQuery", defaultValue = "") String stateQuery) throws JsonProcessingException {
+        // Формируем ответ
+        ArrayList<State> response = new ArrayList<>();
+        // Проверяем корректность запроса
+        try {
+            ServerQuery query = new ObjectMapper().readValue(stateQuery, ServerQuery.class);
+            // Правильный запрос
+            response = stateRepository.findStatesByAutoIdIs(query.getAutoId());  // Считываем метки
+            // Удаляем лишнее
+            int size = response.size();
+            if(query.getMaxAmount() < size)
+            for (int i = 0; i < size - query.getMaxAmount(); i++) {
+                response.remove(0);
+            }
+            System.out.println(response.size());
+            // Записываем лог
+            LOG.info("DONE FOR: " + stateQuery);
+        } catch (IOException e) {
+            // Неверный запрос
+            LOG.error(e.getMessage() + " FOR: " + stateQuery);
+        }
+        // Возвращаем результат запроса
+        return new ObjectMapper().writeValueAsString(response);
     }
 }
