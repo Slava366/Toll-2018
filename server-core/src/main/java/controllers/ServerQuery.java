@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Форма запроса
  */
-public class ServerQueryResponse {
+public class ServerQuery {
 
     private String autoId;      // Идентификатор запроса
     private int maxAmount;      // Максимальное количество строк
