@@ -133,3 +133,7 @@ project(':tracker-core'){
         mainClass = 'jdev.tracker.Main'
     }
 }
+
+project(':lab9') {
+    apply plugin: 'java-library-distribution';
+}

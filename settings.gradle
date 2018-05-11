@@ -5,3 +5,5 @@ include 'server-ui'
 include 'server-core'
 include 'tracker-ui'
 include 'tracker-core'
+
+include 'lab9'
