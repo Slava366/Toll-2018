@@ -2,6 +2,10 @@ package bad;
 
 /**
  * Должен выводить в консоль "Помиловать" 1000 раз, однако это происходит не всегда.
+ * 1-й вариант, поменяли строки местами:
+ * correctorThread.start();
+ * message = "Казнить";
+ * Результат: Проблема не решилась.
  */
 public class BadThreads {
 
@@ -17,8 +21,8 @@ public class BadThreads {
     public static void main(String args[]) throws InterruptedException {
         for (int i=0; i<1000; i++) {
             CorrectorThread correctorThread = new CorrectorThread();
-            message = "Казнить";
             correctorThread.start();
+            message = "Казнить";
             Thread.sleep(10);
             if (message.equalsIgnoreCase("Казнить"))
                 System.out.println(message);
