@@ -2,8 +2,8 @@ package bad;
 
 /**
  * Должен выводить в консоль "Помиловать" 1000 раз, однако это происходит не всегда.
- * 2-й вариант, вставили задержку:
- * Результат: Замедляет работу программы.
+ * 3-й вариант, ждем завершения нити корректора:
+ * Результат: "Казнить" не появляется.
  */
 public class BadThreads {
 
@@ -21,7 +21,8 @@ public class BadThreads {
             CorrectorThread correctorThread = new CorrectorThread();
             message = "Казнить";
             correctorThread.start();
-            Thread.sleep(100);
+//            Thread.sleep(10);
+            correctorThread.join();
             if (message.equalsIgnoreCase("Казнить"))
                 System.out.println(message);
         }
