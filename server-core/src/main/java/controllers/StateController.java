@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/*
+ * Нагрузил контроллеры с помощью JMeter, все работает стабильно так-как БД уже синхронизирована.
+ */
 
 @RestController
 @EnableJpaRepositories("jdev.dto")
